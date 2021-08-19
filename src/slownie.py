@@ -77,7 +77,7 @@ class LiczbaSlownie:
         return str_res.capitalize()
 
     def func_b(self):
-        pass    
+        print(self.UNITS)    
 
         
 

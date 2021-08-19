@@ -79,6 +79,9 @@ class LiczbaSlownie:
     def func_a(self):
         pass
     
+    def func_b(self):
+        print(self.UNITS)    
+
 
         
 

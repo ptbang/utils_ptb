@@ -76,6 +76,8 @@ class LiczbaSlownie:
                     str_res = self.hundreds(t) + ' ' + odmiana + ' ' + str_res            
         return str_res.capitalize()
 
+    def func_a(self):
+        pass
     
 
         

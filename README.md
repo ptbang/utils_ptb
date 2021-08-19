@@ -1,3 +1,3 @@
-#utils_ptb
+# utils_ptb
 My utils package
-LiczbaSlownie - converts a number to Polish words. Use: LiczbaSlownie(1873).slownie()
+LiczbaSlownie - converts a number to Polish words. Usage: LiczbaSlownie(1873).slownie()

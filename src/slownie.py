@@ -76,12 +76,6 @@ class LiczbaSlownie:
                     str_res = self.hundreds(t) + ' ' + odmiana + ' ' + str_res            
         return str_res.capitalize()
 
-
-if __name__ == "__main__":
-    print(LiczbaSlownie(9010071172).slownie())
-    print(LiczbaSlownie(901001172).slownie())
-    print(LiczbaSlownie(10001011).slownie())
-    print(LiczbaSlownie(10000011).slownie())
     
 
         

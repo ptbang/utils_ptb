@@ -5,7 +5,7 @@ class LiczbaSlownie:
     UNITS = [None, 'jeden', 'dwa', 'trzy', 'cztery', 'pięć', 'sześć', 'siedem', 'osiem', 'dziewięć',
         'dziesięć', 'jedenaście', 'dwanaście', 'trzynaście', 'czternaście', 'piętnaście', 'szestnaście', 'siedemnaście', 'osiemnaście', 'dziewiętnaście']
     DZIESIATKI = [None, None, 'dwadzieścia', 'trzydzieści', 'czterdzieści', 'pięćdziesiąt', 'sześćdziesiąt', 'siedemdziesiąt', 'osiemdziesiąt', 'dziewięćdziesiąt']
-    SETKI = [None, 'sto', 'dwieście', 'trzysta', 'cztersta', 'pięćset', 'sześćset', 'siedemset', 'osiemset', 'dziewięćset']
+    SETKI = [None, 'sto', 'dwieście', 'trzysta', 'czterysta', 'pięćset', 'sześćset', 'siedemset', 'osiemset', 'dziewięćset']
     ODMIANY = [
         None,
         ['tysiąc', 'tysiące', 'tysięcy'],
@@ -18,17 +18,22 @@ class LiczbaSlownie:
     ]
 
     def __init__(self, num):
-        '''Argument value: 0<= num < 10**24'''
-        if not isinstance(num, int) or num < 0 or  num >= 10**24:
-            raise TypeError('A number must be positive integer!')
-        self.num = num
+        '''Argument value: -10**24 < num < 10**24'''
+        to_power = len(self.ODMIANY)*3
+        num_max = 10**to_power
+        if not isinstance(num, int) or  abs(num) >= num_max:
+            raise TypeError(f'A number must be integer in (-10**{to_power}, 10**{to_power})')
+        self.positive = True if num > 0 else False
+        self.num = abs(num)
         self.num_str = str(self.num)
 
     @staticmethod
     def odmien_rzeczownik(n, odmiany:Union[tuple[str, str, str], list[str, str, str]]):
         if not isinstance(odmiany, (tuple, list)) or len(odmiany) != 3:
             raise TypeError('Param "odmiany" must be tuple/list and must have 3 items!')
-        if n == 0:
+        elif n < 0:
+            raise TypeError('Param "n" cannot be a negative number!')
+        elif n == 0:
             return None
         elif n == 1:
             result = odmiany[0]
@@ -59,10 +64,10 @@ class LiczbaSlownie:
 
     def slownie(self):
         if not self.num:
-            return 'Zero'
+            return 'zero'
         num_str_len = len(self.num_str)
         loop = -(-num_str_len//3)
-        i = 1
+        #i = 1
         for i in range(loop):
             index_from = -(i+1)*3 if (i+3) < num_str_len else -num_str_len 
             index_to = -i*3
@@ -74,9 +79,21 @@ class LiczbaSlownie:
                 odmiana = self.odmien_rzeczownik(t, self.ODMIANY[i]) if t != 0 else None 
                 if odmiana:
                     str_res = self.hundreds(t) + ' ' + odmiana + ' ' + str_res            
-        return str_res.capitalize()
-   
+        return str_res if self.positive else 'minus ' + str_res
 
 
+def kwota_slownie(num):
+    PLN = [('złoty', 'złote', 'złotych'), ('grosz', 'grosze', 'groszy')]
+    to_power = len(LiczbaSlownie.ODMIANY)*3
+    num_max = 10**to_power
+    if abs(num) >= num_max:
+        raise TypeError(f'A number must be in (-10**{to_power}, 10**{to_power})')
+    num = int(num*100)
+    gr = int(abs(num) % 100)
+    zl = int(((num - gr) if num >= 0 else (num + gr))/100)
+    result = LiczbaSlownie(zl).slownie() + ' ' + LiczbaSlownie.odmien_rzeczownik(abs(zl), PLN[0])
+    if gr:
+        result += ' ' + LiczbaSlownie(gr).slownie() + ' ' + LiczbaSlownie.odmien_rzeczownik(gr, PLN[1])  
+    return result
         
 

@@ -75,12 +75,7 @@ class LiczbaSlownie:
                 if odmiana:
                     str_res = self.hundreds(t) + ' ' + odmiana + ' ' + str_res            
         return str_res.capitalize()
-
-    def func_a(self):
-        pass
-    
-    def func_b(self):
-        print(self.UNITS)    
+   
 
 
         

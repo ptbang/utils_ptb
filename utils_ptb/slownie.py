@@ -1,7 +1,7 @@
 from typing import Union
 
 
-class LiczbaSlownie:
+class IntSlownie:
     UNITS = [None, 'jeden', 'dwa', 'trzy', 'cztery', 'pięć', 'sześć', 'siedem', 'osiem', 'dziewięć',
         'dziesięć', 'jedenaście', 'dwanaście', 'trzynaście', 'czternaście', 'piętnaście', 'szestnaście', 'siedemnaście', 'osiemnaście', 'dziewiętnaście']
     DZIESIATKI = [None, None, 'dwadzieścia', 'trzydzieści', 'czterdzieści', 'pięćdziesiąt', 'sześćdziesiąt', 'siedemdziesiąt', 'osiemdziesiąt', 'dziewięćdziesiąt']
@@ -17,7 +17,7 @@ class LiczbaSlownie:
         ['tryliard', 'tryliardy', 'tryliardów'],
     ]
 
-    def __init__(self, num):
+    def __init__(self, num:int):
         '''Argument value: -10**24 < num < 10**24'''
         to_power = len(self.ODMIANY)*3
         num_max = 10**to_power
@@ -84,16 +84,14 @@ class LiczbaSlownie:
 
 def kwota_slownie(num):
     PLN = [('złoty', 'złote', 'złotych'), ('grosz', 'grosze', 'groszy')]
-    to_power = len(LiczbaSlownie.ODMIANY)*3
+    to_power = len(IntSlownie.ODMIANY)*3
     num_max = 10**to_power
     if abs(num) >= num_max:
         raise TypeError(f'A number must be in (-10**{to_power}, 10**{to_power})')
     num = int(num*100)
     gr = int(abs(num) % 100)
     zl = int(((num - gr) if num >= 0 else (num + gr))/100)
-    result = LiczbaSlownie(zl).slownie() + ' ' + LiczbaSlownie.odmien_rzeczownik(abs(zl), PLN[0])
+    result = IntSlownie(zl).slownie() + ' ' + IntSlownie.odmien_rzeczownik(abs(zl), PLN[0])
     if gr:
-        result += ' ' + LiczbaSlownie(gr).slownie() + ' ' + LiczbaSlownie.odmien_rzeczownik(gr, PLN[1])  
+        result += ' ' + IntSlownie(gr).slownie() + ' ' + IntSlownie.odmien_rzeczownik(gr, PLN[1])  
     return result
-        
-

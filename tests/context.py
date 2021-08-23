@@ -2,4 +2,4 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-import utils_ptb.slownie as slownie
+from  utils_ptb.slownie import kwota_slownie

@@ -1,3 +1,3 @@
-from .slownie import LiczbaSlownie, kwota_slownie
+from .slownie import IntSlownie, kwota_slownie
 
-__all__ = ['LiczbaSlownie', 'kwota_slownie']
+__all__ = ['IntSlownie', 'kwota_slownie']

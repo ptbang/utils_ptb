@@ -1,7 +1,7 @@
 import unittest
 from unittest.main import main
 #from utils_ptb import slownie
-from context import slownie
+from context import kwota_slownie
 
 class TestSlownie(unittest.TestCase):
     def test_kwota_slownie_odmiany(self):
@@ -12,7 +12,7 @@ class TestSlownie(unittest.TestCase):
             (1456981, 'jeden milion czterysta pięćdziesiąt sześć tysięcy dziewięćset osiemdziesiąt jeden złotych'),
         )
         for d in data:
-            self.assertEqual(slownie.kwota_slownie(d[0]), d[1])
+            self.assertEqual(kwota_slownie(d[0]), d[1])
 
     def test_kwota_slownie_negative(self):
         data = (
@@ -22,7 +22,7 @@ class TestSlownie(unittest.TestCase):
             (-1456981, 'minus jeden milion czterysta pięćdziesiąt sześć tysięcy dziewięćset osiemdziesiąt jeden złotych'),
         )
         for d in data:
-            self.assertEqual(slownie.kwota_slownie(d[0]), d[1])
+            self.assertEqual(kwota_slownie(d[0]), d[1])
 
     def test_kwota_slownie_decimal(self):
         data = (
@@ -32,7 +32,7 @@ class TestSlownie(unittest.TestCase):
             (1456981.14, 'jeden milion czterysta pięćdziesiąt sześć tysięcy dziewięćset osiemdziesiąt jeden złotych czternaście grosze'),
         )
         for d in data:
-            self.assertEqual(slownie.kwota_slownie(d[0]), d[1])
+            self.assertEqual(kwota_slownie(d[0]), d[1])
             
 
 if __name__ == "__main__":
